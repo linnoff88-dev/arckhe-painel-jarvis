@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>painel-jarvis — o que falhou hoje? seu Jarvis responde</title>
+<meta name="description" content="Pergunte ao seu Jarvis o que falhou hoje e ele responde com o estado real da sua máquina, dos serviços, das rotinas e dos sites. Plugin do INTELECTO, servidor MCP e painel instalável no celular, em Python puro.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/painel-jarvis/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/painel-jarvis/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/painel-jarvis/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;height:auto;display:block}
+  .resumo{padding:38px 0 34px;border-bottom:1px solid var(--line)}
+  .resumo p{font-size:1.12rem;line-height:1.7;max-width:74ch;margin:.55em 0 0}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px minmax(0,1fr);gap:16px;margin-bottom:26px}
+  .step>div,.card{min-width:0}
+  p code,li code,td code{overflow-wrap:anywhere}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;height:auto;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+  .techhead{background:var(--bg2);border-top:3px solid var(--amb);padding:58px 0 8px}
+  .techhead h2{font-family:Sora;margin:.3em 0 0}
+  .techzone{background:var(--bg2)}
+  table.q{width:100%;border-collapse:collapse;font-size:.92rem} table.q th,table.q td{text-align:left;padding:.55em .6em;border-bottom:1px solid var(--line);vertical-align:top} table.q th{color:var(--amb);font-family:Sora;font-weight:600}
+  .tbl{overflow-x:auto} table.q td:first-child{white-space:nowrap}
+  .ex .largo{grid-column:1/-1}
+  .fala{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--amb);border-radius:12px;padding:16px 18px;margin:0 0 14px}
+  .fala b{color:var(--amb)}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">📟</span> painel-jarvis</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#problema">O problema</a>
+    <a class="sec" href="#jeitos">Três jeitos</a>
+    <a class="sec" href="#como-fica">Como fica</a>
+    <a class="sec" href="#tecnico">Kit (técnico)</a>
+    <span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/painel-jarvis" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Plugin para o seu Jarvis · e app no celular</span>
+      <h1>"O que falhou hoje?" <span class="amb">Seu Jarvis responde.</span></h1>
+      <p class="lead">Você só descobre que o backup parou, o bot caiu ou o site saiu do ar quando alguém reclama. Com o painel-jarvis, você pergunta ao seu assistente de IA (INTELECTO, Claude Code, Codex…) e ele mostra o que está de pé e o que caiu.</p>
+      <div class="cta">
+        <a class="btn" href="#problema">Entender em 3 minutos</a>
+        <a class="btn ghost" href="https://github.com/inematds/painel-jarvis" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/banner.jpg" alt="Painel Jarvis: o que falhou hoje? Seu Jarvis responde. Máquina, serviços, rotinas e sites, no seu assistente e no celular"></figure>
+  </div>
+</header>
+
+<section id="resumo" class="resumo"><div class="wrap">
+  <span class="chip">Em resumo</span>
+  <p>Quem deixa coisas rodando sozinhas no computador (um assistente, um backup, um robô que publica vídeo, um site) costuma saber que algo quebrou só quando alguém reclama. O painel-jarvis é um pequeno programa em Python que olha tudo isso por você: memória e disco da máquina, serviços, rotinas, sites e o que mudou nos seus projetos. Você vê num painel que abre no celular como um app, ou simplesmente pergunta ao seu assistente de IA "o que falhou hoje?". Precisa de um computador com Linux e Python 3.11 ou mais novo.</p>
+  <figure style="margin:26px 0 0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000"><img src="assets/banner-grade.jpg" alt="Os seis quadros do painel: máquina, serviços, rotinas, sites, o que fizemos e no celular" loading="lazy" style="width:100%;display:block"></figure>
+</div></section>
+
+<!-- VIDEO: entra o explicavideo do projeto quando publicado -->
+
+<section id="problema"><div class="wrap">
+  <span class="chip">O problema</span>
+  <h2>As coisas param <span class="amb">em silêncio</span></h2>
+  <p class="sub">Um computador que trabalha sozinho não avisa quando para. Ele simplesmente para.</p>
+  <div class="grid g3">
+    <div class="card"><h3>🔇 O serviço caiu de madrugada</h3><p>O assistente que responde no Telegram travou às 3 da manhã. Você só percebe no fim da tarde, quando estranha o silêncio.</p></div>
+    <div class="card"><h3>🗓️ A rotina falhou e ninguém viu</h3><p>O backup ou a publicação automática deu erro, mas o erro ficou escondido num arquivo de log que ninguém abre.</p></div>
+    <div class="card"><h3>💾 O disco encheu aos poucos</h3><p>Dia após dia o disco foi enchendo. Quando chega a 100 %, tudo para de uma vez, e o conserto é mais trabalhoso.</p></div>
+  </div>
+  <p class="sub" style="margin-top:1.6em">O painel-jarvis olha essas coisas a cada consulta e põe em <b class="amb">amarelo</b> o que pede atenção e em <b style="color:#f87171">vermelho</b> o que falhou. Sempre com a palavra junto ("atenção", "falha"), não só a cor.</p>
+</div></section>
+
+<section id="jeitos"><div class="wrap">
+  <span class="chip">Três jeitos de usar</span>
+  <h2>Um painel, <span class="amb">três portas</span></h2>
+  <p class="sub">É o mesmo painel por dentro. Você escolhe por onde consultar.</p>
+  <div class="grid g3">
+    <div class="card"><span class="num">1</span><h3>Perguntando ao seu Jarvis</h3><p>Se você usa o <a href="https://github.com/inematds/intelecto-v2" target="_blank" rel="noopener">INTELECTO</a>, o assistente em Python do INEMA, o painel vira um plugin: ele ganha três ferramentas novas e responde "o que falhou hoje?" com dado real. <a href="#passo-4">como ligar ↓</a></p></div>
+    <div class="card"><span class="num">2</span><h3>Em qualquer agente de IA</h3><p>O painel também fala MCP, a "tomada" padrão que agentes como Claude Code, Codex e Cursor usam para chamar ferramentas. Qualquer Jarvis que fale MCP consulta o painel do mesmo jeito. <a href="#passo-5">como ligar ↓</a></p></div>
+    <div class="card"><span class="num">3</span><h3>No celular, como app</h3><p>Uma página com cartões, protegida por senha, que você instala na tela do celular como um app (o nome técnico é PWA: um site que se instala como app). Abre em tela cheia, relê sozinha a cada minuto e diz "sem conexão" quando a internet cai. <a href="#passo-6">como ligar ↓</a></p></div>
+  </div>
+  <div style="margin-top:22px">
+    <div class="fala"><b>Você:</b> o que falhou hoje?</div>
+    <div class="fala"><b>Seu Jarvis:</b> O que precisa de atenção: rotina backup: erro na última execução (14/11 03:00) · disco / em 91 %.</div>
+  </div>
+</div></section>
+
+<section id="como-fica"><div class="wrap">
+  <span class="chip">Como fica</span>
+  <h2>O painel <span class="amb">de verdade</span></h2>
+  <p class="sub">Capturas do painel rodando no computador do INEMA em 14/11/2026. Toque num cartão e ele abre o detalhe.</p>
+  <div class="ex">
+    <figure class="largo"><img src="assets/ex-desktop.jpg" alt="Painel no computador: seis cartões (máquina, serviços, rotinas, sites, o que fizemos e portal), todos em ordem" loading="lazy"><figcaption>No computador: seis quadros. A faixa no topo diz "Tudo em ordem" ou lista o que pede atenção.</figcaption></figure>
+    <figure><img src="assets/ex-celular.jpg" alt="Painel no celular, com o quadro de serviços aberto" loading="lazy" style="max-width:390px;margin:0 auto"><figcaption>No celular: um quadro por vez, instalável como app (Chrome → ⋮ → Instalar app).</figcaption></figure>
+  </div>
+</div></section>
+
+<div id="tecnico" class="techhead"><div class="wrap">
+  <span class="chip">Parte técnica</span>
+  <h2>O kit: <span class="amb">para quem quer instalar e ligar</span></h2>
+  <p class="sub">Daqui para baixo é a parte técnica: os quadros, a instalação e o passo a passo. Você <strong>não precisa</strong> desta parte para entender o que está acima.</p>
+</div></div>
+
+<div class="techzone">
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Seis quadros, <span class="amb">todos só leitura</span></h2>
+  <p class="sub">Cada seção do arquivo <code>painel.toml</code> liga um quadro. O painel nunca muda nada na sua máquina: só lê.</p>
+  <div class="tbl"><table class="q">
+    <tr><th>Quadro</th><th>O que mostra</th><th>Fica amarelo/vermelho quando</th></tr>
+    <tr><td><code>maquina</code></td><td>memória, disco, carga, GPU (se houver <code>nvidia-smi</code>)</td><td>memória com menos de 10 % livre; disco em 90 % ou mais</td></tr>
+    <tr><td><code>servicos</code></td><td>serviços e timers do systemd (o "gerenciador de serviços" do Linux)</td><td>serviço falhou, timer parado, serviço que não existe</td></tr>
+    <tr><td><code>rotinas</code></td><td>rotinas do cron ou scripts, pelo arquivo de log</td><td>erro nas últimas linhas do log, ou parada além do prazo</td></tr>
+    <tr><td><code>sites</code></td><td>uma visita leve a cada site</td><td>site fora do ar</td></tr>
+    <tr><td><code>git</code></td><td>o que fizemos: commits de 24 h e 7 dias por projeto</td><td>—</td></tr>
+    <tr><td><code>uso</code></td><td>números de qualquer arquivo JSON que outro script grava (visitas, vendas, fila)</td><td>arquivo parado além do prazo</td></tr>
+  </table></div>
+  <p class="sub" style="margin-top:1.2em">O quadro <code>uso</code> é a ponte para os seus números: o seu script coleta e grava um JSON; o painel só lê o arquivo. Assim o painel não precisa de chave de serviço nenhum.</p>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Um núcleo, <span class="amb">três saídas</span></h2>
+  <p class="sub">Os coletores leem a máquina; o núcleo junta tudo em cartões; cada porta entrega os mesmos cartões do seu jeito. Se um coletor quebra, o cartão dele aparece como "sem leitura" e o resto segue.</p>
+  <div class="flow">
+    <span>painel.toml</span><span class="arr">→</span>
+    <span>coletores (máquina, serviços, rotinas, sites, git, uso)</span><span class="arr">→</span>
+    <span>cartões</span><span class="arr">→</span>
+    <span>INTELECTO · MCP · web/celular</span>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>O que você precisa</h2>
+  <p class="sub">Nada de biblioteca extra: o painel usa só o que já vem no Python.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Linux + Python 3.11+</h3><p>Ubuntu 24.04 já vem com o Python 3.12. No Ubuntu 22.04 (Python 3.10), instale um Python mais novo antes: <code>sudo apt install python3.11</code> e depois <code>pipx install --python python3.11 …</code>.</p><pre><span class="k">python3</span> --version</pre></div>
+    <div class="card"><h3>pip</h3><p>Para instalar o pacote direto do GitHub.</p><pre><span class="k">python3</span> -m pip --version</pre></div>
+    <div class="card"><h3>Opcional</h3><p>O <a href="https://github.com/inematds/intelecto-v2" target="_blank" rel="noopener">INTELECTO v2.3+</a> para o plugin; um agente com MCP; um túnel (Cloudflare Tunnel ou Tailscale) para abrir o painel fora de casa.</p></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Do zero ao <span class="amb">"o que falhou hoje?"</span></h2>
+  <p class="sub">Os comandos abaixo são os de verdade do projeto. Em uma máquina nova, leva uns 10 minutos.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Instale o pacote</h3>
+    <p>O jeito mais simples é o <code>pipx</code>, que instala programas Python sem bagunçar o sistema e põe o comando <code>painel-jarvis</code> em <code>~/.local/bin</code> (o mesmo caminho que o serviço do passo 7 usa). No Ubuntu: <code>sudo apt install pipx</code> e depois <code>pipx ensurepath</code> (feche e abra o terminal).</p>
+<pre><span class="k">pipx install</span> <span class="s">git+https://github.com/inematds/painel-jarvis</span>
+<span class="k">painel-jarvis</span> --version   <span class="c"># 1.0.1</span>
+
+<span class="c"># alternativa, num ambiente virtual:</span>
+<span class="k">python3</span> -m venv ~/.venv-painel &amp;&amp; <span class="k">source</span> ~/.venv-painel/bin/activate
+<span class="k">pip install</span> <span class="s">git+https://github.com/inematds/painel-jarvis</span>
+<span class="c"># (no venv, o comando fica em ~/.venv-painel/bin/painel-jarvis: use esse caminho no passo 7)</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Diga o que vigiar</h3>
+    <p>O exemplo já liga o quadro da máquina; as outras seções vêm comentadas, com nomes de exemplo. Para ligar uma, tire o <code>#</code> do começo das linhas dela e troque os nomes pelos seus serviços, logs, sites e pastas.</p>
+<pre><span class="k">mkdir</span> -p ~/.config/painel-jarvis
+<span class="k">painel-jarvis</span> exemplo &gt; ~/.config/painel-jarvis/painel.toml
+<span class="k">nano</span> ~/.config/painel-jarvis/painel.toml</pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Confira no terminal</h3>
+    <p>Uma linha por quadro, e depois só o que pede atenção. O símbolo diz o estado: <b>✓</b> em ordem, <b>!</b> atenção, <b>✕</b> falha, <b>?</b> sem leitura (o quadro não conseguiu ler os dados, ex.: o JSON do quadro <code>uso</code> ainda não existe). Ligou uma seção nova? Rode de novo para conferir.</p>
+<pre><span class="k">painel-jarvis</span> cartoes
+<span class="c"># Painel do Jarvis: 1 ponto(s) de atenção
+# ✓ Máquina: 94,6 GB livres de 119
+# ! Serviços: 1 de 2 em ordem</span>
+<span class="k">painel-jarvis</span> falhas</pre>
+  </div></div>
+
+  <div class="step" id="passo-4"><div class="b">4</div><div>
+    <h3>Ligue no INTELECTO</h3>
+    <p>O plugin precisa estar no mesmo Python do INTELECTO v2.3 ou mais novo: instale os dois no mesmo ambiente virtual, ou, se o INTELECTO foi instalado com pipx, use <code>pipx inject intelecto git+https://github.com/inematds/painel-jarvis</code>. Depois ligue o plugin pelo nome. Ele ganha <code>painel_resumo</code>, <code>painel_falhas</code> e <code>painel_quadro</code>. Um plugin nunca substitui as ferramentas de fábrica.</p>
+<pre><span class="k">INTELECTO_PLUGINS</span>=painel <span class="k">intelecto</span>
+<span class="c"># ou, fixo: "plugins": ["painel"] em ~/.intelecto2/config.json</span></pre>
+  </div></div>
+
+  <div class="step" id="passo-5"><div class="b">5</div><div>
+    <h3>Ou ligue em qualquer agente com MCP</h3>
+    <p>O painel vira um servidor MCP pelo terminal (stdio). No Claude Code é uma linha; em outros agentes, use o comando <code>painel-jarvis mcp</code> na configuração de servidores MCP.</p>
+<pre><span class="k">claude mcp add</span> painel -- painel-jarvis mcp
+<span class="c"># depois, no agente: "use o painel e me diga o que falhou hoje"</span></pre>
+  </div></div>
+
+  <div class="step" id="passo-6"><div class="b">6</div><div>
+    <h3>Abra o painel no navegador</h3>
+    <p>Sem senha, ele só aceita a própria máquina: até o <code>--bind 0.0.0.0</code> volta sozinho para 127.0.0.1 e avisa no terminal. Para abrir de outro aparelho, defina uma senha (12 caracteres ou mais; fica em <code>~/.config/painel-jarvis/senha.json</code>) e escute na rede.</p>
+<pre><span class="k">painel-jarvis</span> web                  <span class="c"># http://127.0.0.1:8790/</span>
+<span class="k">painel-jarvis</span> senha
+<span class="k">painel-jarvis</span> web --bind 0.0.0.0    <span class="c"># na rede de casa, com login</span></pre>
+  </div></div>
+
+  <div class="step" id="passo-7"><div class="b">7</div><div>
+    <h3>Deixe ligado e instale no celular</h3>
+    <p>Defina a senha antes (passo 6): sem ela, o serviço fica só em 127.0.0.1 e o celular não abre. O bloco abaixo cria o arquivo do serviço e liga; o <code>enable-linger</code> faz o serviço subir no boot e continuar depois que você sai da sessão. Para abrir fora de casa, ponha um túnel com HTTPS na frente da porta 8790. No celular: Chrome → ⋮ → <b>Instalar app</b> (no iPhone: Safari → Compartilhar → Tela de Início).</p>
+<pre><span class="k">mkdir</span> -p ~/.config/systemd/user
+<span class="k">cat</span> &gt; ~/.config/systemd/user/painel-jarvis.service &lt;&lt;'FIM'
+[Unit]
+Description=painel-jarvis web
+[Service]
+ExecStart=%h/.local/bin/painel-jarvis web --bind 0.0.0.0
+Restart=on-failure
+[Install]
+WantedBy=default.target
+FIM
+<span class="k">systemctl</span> --user daemon-reload
+<span class="k">systemctl</span> --user enable --now painel-jarvis
+<span class="k">loginctl</span> enable-linger $USER
+<span class="k">journalctl</span> --user -u painel-jarvis -n 5   <span class="c"># deve dizer "com senha"</span></pre>
+  </div></div>
+</div></section>
+
+<section id="seguranca"><div class="wrap">
+  <span class="chip">Segurança</span>
+  <h2>Só lê, e <span class="amb">só com senha fora da máquina</span></h2>
+  <div class="grid g2" style="margin-top:1.4em">
+    <div class="card"><h3>🔒 Senha e sessão</h3><p>Senha guardada como scrypt; cookie que o JavaScript não lê (HttpOnly); 5 tentativas erradas bloqueiam por 15 minutos. Sem senha, o painel só escuta em 127.0.0.1.</p></div>
+    <div class="card"><h3>👁️ Só leitura</h3><p>As ferramentas não executam nada que o agente escolha; no MCP vão marcadas como só leitura. O service worker não guarda dado: sem rede, mostra "sem conexão".</p></div>
+    <div class="card"><h3>🌐 HTTPS pelo túnel</h3><p>O painel não fala HTTPS sozinho. Para a internet, use um túnel com HTTPS (Cloudflare Tunnel, Tailscale).</p></div>
+    <div class="card"><h3>🔑 Sem chave de serviço</h3><p>O painel não chama API de terceiros. Números de serviços externos chegam pelo quadro <code>uso</code>, de um JSON que o seu script grava.</p></div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>O que vem depois</h2>
+  <div class="phase"><div class="tag">v1.0</div><div class="d"><strong>Hoje</strong><span>Seis quadros, plugin do INTELECTO, servidor MCP, painel web instalável com senha.</span></div></div>
+  <div class="phase"><div class="tag">próximo</div><div class="d"><strong>Aviso ativo</strong><span>Mandar o alerta para o Telegram quando um quadro fica vermelho, em vez de esperar a pergunta.</span></div></div>
+  <div class="phase"><div class="tag">depois</div><div class="d"><strong>Mais quadros</strong><span>Containers Docker e filas de tarefas, no mesmo formato de cartão.</span></div></div>
+</div></section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Python puro</div><div class="pill">MCP</div><div class="pill">PWA</div><div class="pill">MIT</div>
+    <p style="margin-top:18px">painel-jarvis · plugin do INTELECTO e de qualquer Jarvis ·
+      <a href="https://github.com/inematds/painel-jarvis">inematds/painel-jarvis</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='painel-jarvis-theme'; // troque painel-jarvis pelo nome do projeto
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>
