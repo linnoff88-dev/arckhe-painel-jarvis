@@ -6,7 +6,7 @@
 </div>
 
 
-[![painel-jarvis: o que falhou hoje? Seu Jarvis responde](guia/assets/banner.jpg)](https://inematds.github.io/painel-jarvis/guia/)
+[![painel-jarvis: o que falhou hoje? Seu Jarvis responde](guia/assets/banner.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/)
 
 **ê°Å¸â¡Â§ê°Å¸â¡Â· [PortuguêÂªs](README.md) êÂ· ê°Å¸â¡Âºê°Å¸â¡Â¸ [English](README.en.md) êÂ· ê°Å¸â¡Âªê°Å¸â¡Â¸ [EspaêÂ±ol](README.es.md)**
 
@@ -16,7 +16,7 @@ Quem deixa coisas rodando sozinhas no computador (um assistente, um backup, um r
 
 ## ê°Å¸ââ Guia de uso
 
-Guia completo (landing + passo a passo): **https://inematds.github.io/painel-jarvis/guia/**
+Guia completo (landing + passo a passo): **https://linnoff88-dev.github.io/arckhe-/guia/**
 
 Python puro (sêÂ³ a biblioteca padrêÂ£o, 3.11+). Um nêÂºcleo, trêÂªs jeitos de usar:
 
@@ -44,7 +44,7 @@ O quadro `uso` êÂ© a ponte para os seus nêÂºmeros: o seu script coleta
 ## Instalar
 
 ```bash
-pipx install git+https://github.com/inematds/painel-jarvis    # ou pip install num venv (ative o venv antes)
+pipx install git+https://github.com/linnoff88-dev/painel-jarvis    # ou pip install num venv (ative o venv antes)
 mkdir -p ~/.config/painel-jarvis
 painel-jarvis exemplo > ~/.config/painel-jarvis/painel.toml   # liga a mêÂ¡quina; tire o "#" das seêÂ§êÂµes que quiser
 painel-jarvis cartoes                                          # confere no terminal
@@ -54,7 +54,7 @@ painel-jarvis cartoes                                          # confere no term
 
 | # | Passo | Comando | Quem |
 |---|---|---|---|
-| 1 | Instalar o pacote | `pipx install git+https://github.com/inematds/painel-jarvis` | ê°Å¸Â§Â  vocêÂª |
+| 1 | Instalar o pacote | `pipx install git+https://github.com/linnoff88-dev/painel-jarvis` | ê°Å¸Â§Â  vocêÂª |
 | 2 | Escrever o `painel.toml` (o que vigiar) | `painel-jarvis exemplo > ~/.config/painel-jarvis/painel.toml` | ê°Å¸Â§Â  vocêÂª |
 | 3 | Conferir os quadros no terminal | `painel-jarvis cartoes` êÂ· `painel-jarvis falhas` | ê°Å¸Â§Â  vocêÂª |
 | 4 | Ligar no Jarvis: INTELECTO (mesmo Python: mesmo venv ou `pipx inject intelecto ê¢â¬Â¦`) | `"plugins": ["painel"]` no `config.json` ou `INTELECTO_PLUGINS=painel` | ê°Å¸Â§Â  vocêÂª |
@@ -98,7 +98,7 @@ systemctl --user daemon-reload
 python3 -m pytest -q
 ```
 
-LicenêÂ§a MIT êÂ· feito pelo [INEMA](https://inema.club).
+LicenêÂ§a MIT êÂ· feito pelo [ARCKHÉ](https://ARCKHÉ AI).
 
 ---
 

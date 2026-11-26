@@ -1,8 +1,8 @@
 # painel-jarvis
 
-[![panel-jarvis: ¿qué falló hoy? Tu Jarvis responde](guia/assets/banner-es.jpg)](https://inematds.github.io/painel-jarvis/guia/es/)
+[![panel-jarvis: ¿qué falló hoy? Tu Jarvis responde](guia/assets/banner-es.jpg)](https://linnoff88-dev.github.io/arckhe-/guia/es/)
 
-**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md) · [Guide/Guía](https://inematds.github.io/painel-jarvis/guia/es/)**
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md) · [Guide/Guía](https://linnoff88-dev.github.io/arckhe-/guia/es/)**
 
 ## Qué es
 
@@ -12,7 +12,7 @@ Por ahora, los mensajes del programa y el panel web están en portugués.
 
 ## 📖 Guía de uso
 
-Guía completa (página de presentación + paso a paso): **https://inematds.github.io/painel-jarvis/guia/es/**
+Guía completa (página de presentación + paso a paso): **https://linnoff88-dev.github.io/arckhe-/guia/es/**
 
 Python puro (solo la biblioteca estándar, 3.11+). Un núcleo, tres formas de usarlo:
 
@@ -40,7 +40,7 @@ El panel `uso` conecta tus datos: tu script los recopila (y decide si puede llam
 ## Instalación
 
 ```bash
-pipx install git+https://github.com/inematds/painel-jarvis    # o pip install en un venv (activa el venv antes)
+pipx install git+https://github.com/linnoff88-dev/painel-jarvis    # o pip install en un venv (activa el venv antes)
 mkdir -p ~/.config/painel-jarvis
 painel-jarvis exemplo > ~/.config/painel-jarvis/painel.toml   # activa la máquina; quita el "#" de las secciones que quieras
 painel-jarvis cartoes                                          # revisa en la terminal
@@ -50,7 +50,7 @@ painel-jarvis cartoes                                          # revisa en la te
 
 | # | Paso | Comando | Quién |
 |---|---|---|---|
-| 1 | Instalar el paquete | `pipx install git+https://github.com/inematds/painel-jarvis` | 🧠 tú |
+| 1 | Instalar el paquete | `pipx install git+https://github.com/linnoff88-dev/painel-jarvis` | 🧠 tú |
 | 2 | Escribir el `painel.toml` (qué vigilar) | `painel-jarvis exemplo > ~/.config/painel-jarvis/painel.toml` | 🧠 tú |
 | 3 | Revisar los paneles en la terminal | `painel-jarvis cartoes` · `painel-jarvis falhas` | 🧠 tú |
 | 4 | Conectarlo a Jarvis: INTELECTO (mismo Python: mismo venv o `pipx inject intelecto …`) | `"plugins": ["painel"]` en `config.json` o `INTELECTO_PLUGINS=painel` | 🧠 tú |
@@ -94,4 +94,4 @@ systemctl --user daemon-reload
 python3 -m pytest -q
 ```
 
-Licencia MIT · hecho por [INEMA](https://inema.club).
+Licencia MIT · hecho por [ARCKHÉ](https://ARCKHÉ AI).

@@ -52,7 +52,7 @@ def painel(titulo, atualizar_s, com_senha):
     return f"""<!doctype html><html lang="pt-BR"><head>{HEAD}<title>{titulo}</title><style>{CSS}</style></head><body>
 <header><div><h1 id="tit">{titulo}</h1><div class="hora" id="hora">lendo…</div></div>{sair}</header>
 <div class="faixa ok" id="faixa">lendo…</div><main id="cards"></main>
-<footer>Toque num quadro para ver o detalhe · <a href="https://github.com/inematds/painel-jarvis">painel-jarvis</a></footer>
+<footer>Toque num quadro para ver o detalhe · <a href="https://github.com/linnoff88-dev/painel-jarvis">painel-jarvis</a></footer>
 <script>window.ATUALIZAR={int(atualizar_s)}</script><script>{JS}</script></body></html>"""
 
 

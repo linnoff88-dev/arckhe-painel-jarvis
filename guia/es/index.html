@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>painel-jarvis — ¿qué falló hoy? Tu Jarvis responde</title>
 <meta name="description" content="Pregúntale a tu Jarvis qué falló hoy y te responderá con el estado real de tu máquina, los servicios, las rutinas y los sitios. Plugin de INTELECTO, servidor MCP y panel instalable en el celular, hecho solo con Python.">
-<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/painel-jarvis/guia/">
-<link rel="alternate" hreflang="en" href="https://inematds.github.io/painel-jarvis/guia/en/">
-<link rel="alternate" hreflang="es" href="https://inematds.github.io/painel-jarvis/guia/es/">
+<link rel="alternate" hreflang="pt-BR" href="https://linnoff88-dev.github.io/arckhe-/guia/">
+<link rel="alternate" hreflang="en" href="https://linnoff88-dev.github.io/arckhe-/guia/en/">
+<link rel="alternate" hreflang="es" href="https://linnoff88-dev.github.io/arckhe-/guia/es/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -39,8 +39,8 @@
   nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
   nav .brand .emoji{font-size:1.25rem}
   nav .sep{color:var(--mut);opacity:.45}
-  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
-  nav .inema:hover{filter:brightness(1.15)}
+  nav .ARCKHÉ{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .ARCKHÉ:hover{filter:brightness(1.15)}
   nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
   nav .pro:hover{filter:brightness(1.15)}
   nav .clubpro{display:inline-flex;align-items:center;gap:6px}
@@ -115,9 +115,9 @@
   <a class="brand" href="#top"><span class="emoji">📟</span> painel-jarvis</a>
   <span class="sep">|</span>
   <span class="clubpro">
-    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <a class="ARCKHÉ" href="https://ARCKHÉ AI" target="_blank" rel="noopener">ARCKHÉ AI</a>
     <span class="sep">-</span>
-    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+    <a class="pro" href="https://ARCKHÉ.pro" target="_blank" rel="noopener">PRO</a>
   </span>
   <div class="links">
     <a class="sec" href="#problema">El problema</a>
@@ -126,7 +126,7 @@
     <a class="sec" href="#tecnico">Kit (técnico)</a>
     <span class="lang"><a href="../">PT</a><a href="../en/">EN</a><a class="on" href="./">ES</a></span>
     <button class="tgl" id="themeToggle" aria-label="Cambiar tema" title="Cambiar tema">🌙</button>
-    <a class="btn" href="https://github.com/inematds/painel-jarvis" target="_blank" rel="noopener">GitHub</a>
+    <a class="btn" href="https://github.com/linnoff88-dev/painel-jarvis" target="_blank" rel="noopener">GitHub</a>
   </div>
 </div></nav>
 
@@ -139,7 +139,7 @@
       <p class="lead">Solo te enteras de que el respaldo se detuvo, el bot dejó de funcionar o el sitio quedó fuera de servicio cuando alguien se queja. Con painel-jarvis, le preguntas a tu asistente de IA (INTELECTO, Claude Code, Codex…) y te muestra qué sigue funcionando y qué dejó de hacerlo.</p>
       <div class="cta">
         <a class="btn" href="#problema">Entiéndelo en 3 minutos</a>
-        <a class="btn ghost" href="https://github.com/inematds/painel-jarvis" target="_blank" rel="noopener">Ver en GitHub</a>
+        <a class="btn ghost" href="https://github.com/linnoff88-dev/painel-jarvis" target="_blank" rel="noopener">Ver en GitHub</a>
       </div>
     </div>
     <figure><img src="../assets/banner-es.jpg" alt="Panel Jarvis: ¿qué falló hoy? Tu Jarvis responde. Máquina, servicios, rutinas y sitios, en tu asistente y en el celular"></figure>
@@ -171,7 +171,7 @@
   <h2>Un panel, <span class="amb">tres puertas</span></h2>
   <p class="sub">Por dentro es el mismo panel. Tú eliges cómo consultarlo.</p>
   <div class="grid g3">
-    <div class="card"><span class="num">1</span><h3>Pregúntale a tu Jarvis</h3><p>Si usas <a href="https://github.com/inematds/intelecto-v2" target="_blank" rel="noopener">INTELECTO</a>, el asistente en Python de INEMA, el panel se convierte en un plugin: suma tres herramientas nuevas y responde «¿qué falló hoy?» con datos reales. <a href="#passo-4">cómo conectarlo ↓</a></p></div>
+    <div class="card"><span class="num">1</span><h3>Pregúntale a tu Jarvis</h3><p>Si usas <a href="https://github.com/linnoff88-dev/intelecto-v2" target="_blank" rel="noopener">INTELECTO</a>, el asistente en Python de ARCKHÉ, el panel se convierte en un plugin: suma tres herramientas nuevas y responde «¿qué falló hoy?» con datos reales. <a href="#passo-4">cómo conectarlo ↓</a></p></div>
     <div class="card"><span class="num">2</span><h3>En cualquier agente de IA</h3><p>El panel también habla MCP, el «enchufe» estándar que usan agentes como Claude Code, Codex y Cursor para llamar herramientas. Cualquier Jarvis que hable MCP consulta el panel de la misma manera. <a href="#passo-5">cómo conectarlo ↓</a></p></div>
     <div class="card"><span class="num">3</span><h3>En el celular, como app</h3><p>Una página con tarjetas, protegida con contraseña, que instalas en la pantalla de tu celular como una app (el nombre técnico es PWA: un sitio que se instala como app). Se abre en pantalla completa, se actualiza sola cada minuto y muestra «sin conexión» cuando se cae internet. <a href="#passo-6">cómo conectarlo ↓</a></p></div>
   </div>
@@ -184,7 +184,7 @@
 <section id="como-fica"><div class="wrap">
   <span class="chip">Cómo se ve</span>
   <h2>El panel <span class="amb">en acción</span></h2>
-  <p class="sub">Capturas del panel funcionando en la computadora de INEMA el 14/11/2026. Toca una tarjeta para abrir el detalle.</p>
+  <p class="sub">Capturas del panel funcionando en la computadora de ARCKHÉ el 14/11/2026. Toca una tarjeta para abrir el detalle.</p>
   <div class="ex">
     <figure class="largo"><img src="../assets/ex-desktop.jpg" alt="Panel en la computadora: seis tarjetas (máquina, servicios, rutinas, sitios, lo que hicimos y portal), todo en orden" loading="lazy"><figcaption>En la computadora: seis paneles. La franja superior dice «Todo en orden» o enumera lo que requiere atención. (Por ahora, los mensajes del programa y el panel web están en portugués.)</figcaption></figure>
     <figure><img src="../assets/ex-celular.jpg" alt="Panel en el celular, con el panel de servicios abierto" loading="lazy" style="max-width:390px;margin:0 auto"><figcaption>En el celular: un panel a la vez, instalable como app (Chrome → ⋮ → Instalar app).</figcaption></figure>
@@ -233,7 +233,7 @@
   <div class="grid g3">
     <div class="card"><h3>Linux + Python 3.11+</h3><p>Ubuntu 24.04 ya incluye Python 3.12. En Ubuntu 22.04 (Python 3.10), instala una versión más reciente de Python primero: <code>sudo apt install python3.11</code> y luego <code>pipx install --python python3.11 …</code>.</p><pre><span class="k">python3</span> --version</pre></div>
     <div class="card"><h3>pip</h3><p>Para instalar el paquete directamente desde GitHub.</p><pre><span class="k">python3</span> -m pip --version</pre></div>
-    <div class="card"><h3>Opcional</h3><p><a href="https://github.com/inematds/intelecto-v2" target="_blank" rel="noopener">INTELECTO v2.3+</a> para el plugin; un agente con MCP; un túnel (Cloudflare Tunnel o Tailscale) para abrir el panel fuera de casa.</p></div>
+    <div class="card"><h3>Opcional</h3><p><a href="https://github.com/linnoff88-dev/intelecto-v2" target="_blank" rel="noopener">INTELECTO v2.3+</a> para el plugin; un agente con MCP; un túnel (Cloudflare Tunnel o Tailscale) para abrir el panel fuera de casa.</p></div>
   </div>
 </div></section>
 
@@ -245,12 +245,12 @@
   <div class="step"><div class="b">1</div><div>
     <h3>Instala el paquete</h3>
     <p>La forma más sencilla es usar <code>pipx</code>, que instala programas de Python sin desordenar el sistema y coloca el comando <code>painel-jarvis</code> en <code>~/.local/bin</code> (la misma ruta que usa el servicio del paso 7). En Ubuntu: <code>sudo apt install pipx</code> y luego <code>pipx ensurepath</code> (cierra y vuelve a abrir la terminal).</p>
-<pre><span class="k">pipx install</span> <span class="s">git+https://github.com/inematds/painel-jarvis</span>
+<pre><span class="k">pipx install</span> <span class="s">git+https://github.com/linnoff88-dev/painel-jarvis</span>
 <span class="k">painel-jarvis</span> --version   <span class="c"># 1.0.1</span>
 
 <span class="c"># como alternativa, en un entorno virtual:</span>
 <span class="k">python3</span> -m venv ~/.venv-painel &amp;&amp; <span class="k">source</span> ~/.venv-painel/bin/activate
-<span class="k">pip install</span> <span class="s">git+https://github.com/inematds/painel-jarvis</span>
+<span class="k">pip install</span> <span class="s">git+https://github.com/linnoff88-dev/painel-jarvis</span>
 <span class="c"># (en el venv, el comando está en ~/.venv-painel/bin/painel-jarvis: usa esta ruta en el paso 7)</span></pre>
   </div></div>
 
@@ -274,7 +274,7 @@
 
   <div class="step" id="passo-4"><div class="b">4</div><div>
     <h3>Conéctalo a INTELECTO</h3>
-    <p>El plugin debe estar en el mismo Python que INTELECTO v2.3 o superior: instala ambos en el mismo entorno virtual o, si instalaste INTELECTO con pipx, usa <code>pipx inject intelecto git+https://github.com/inematds/painel-jarvis</code>. Después activa el plugin por nombre. Añade <code>painel_resumo</code>, <code>painel_falhas</code> y <code>painel_quadro</code>. Un plugin nunca reemplaza las herramientas que vienen de fábrica.</p>
+    <p>El plugin debe estar en el mismo Python que INTELECTO v2.3 o superior: instala ambos en el mismo entorno virtual o, si instalaste INTELECTO con pipx, usa <code>pipx inject intelecto git+https://github.com/linnoff88-dev/painel-jarvis</code>. Después activa el plugin por nombre. Añade <code>painel_resumo</code>, <code>painel_falhas</code> y <code>painel_quadro</code>. Un plugin nunca reemplaza las herramientas que vienen de fábrica.</p>
 <pre><span class="k">INTELECTO_PLUGINS</span>=painel <span class="k">intelecto</span>
 <span class="c"># o, de forma permanente: "plugins": ["painel"] en ~/.intelecto2/config.json</span></pre>
   </div></div>
@@ -338,8 +338,8 @@ FIM
   <div class="wrap">
     <div class="pill">Python puro</div><div class="pill">MCP</div><div class="pill">PWA</div><div class="pill">MIT</div>
     <p style="margin-top:18px">painel-jarvis · plugin de INTELECTO y de cualquier Jarvis ·
-      <a href="https://github.com/inematds/painel-jarvis">inematds/painel-jarvis</a> ·
-      <a href="https://inema.club">INEMA.CLUB</a></p>
+      <a href="https://github.com/linnoff88-dev/painel-jarvis">linnoff88-dev/painel-jarvis</a> ·
+      <a href="https://ARCKHÉ AI">ARCKHÉ AI</a></p>
   </div>
 </footer>
 
