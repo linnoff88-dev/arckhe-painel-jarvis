@@ -19,14 +19,14 @@ def avaliar(log, max_horas, agora=None):
     agora = agora or time.time()
     p = os.path.expanduser(log)
     if not os.path.exists(p):
-        return "aviso", "log não encontrado", ""
+        return "aviso", "log nêo encontrado", ""
     mt = os.path.getmtime(p)
     with open(p, encoding="utf-8", errors="replace") as f:
         fim = [l.strip() for l in f.read()[-20000:].splitlines() if l.strip()]
     ult = fim[-1][:160] if fim else ""
     quando = time.strftime("%d/%m %H:%M", time.localtime(mt))
     if any(ERRO.search(l) for l in fim[-5:]):
-        return "erro", f"erro na última execução ({quando})", ult
+        return "erro", f"erro na última execuçêo ({quando})", ult
     if agora - mt > max_horas * 3600:
         return "aviso", f"parada desde {quando}", ult
     return "ok", f"ok {quando}", ult

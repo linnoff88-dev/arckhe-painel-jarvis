@@ -1,4 +1,4 @@
-"""Configuração em painel.toml (stdlib: tomllib). Cada seção liga um quadro; sem a seção, o quadro não aparece.
+"""Configuraçêo em painel.toml (stdlib: tomllib). Cada seçêo liga um quadro; sem a seçêo, o quadro nêo aparece.
 
 Procura, nesta ordem: $PAINEL_JARVIS_CONFIG, ./painel.toml, ~/.config/painel-jarvis/painel.toml.
 Sem arquivo nenhum, liga só o quadro da máquina (funciona em qualquer Linux).

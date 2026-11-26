@@ -2,7 +2,7 @@
 
 Sem senha definida, só escuta em 127.0.0.1 (só a própria máquina vê). Com senha (`painel-jarvis senha`), pode
 escutar na rede e exige login; o aparelho fica lembrado por um ano. Para abrir fora de casa, ponha um túnel
-(Cloudflare Tunnel, Tailscale) na frente: o painel não fala HTTPS sozinho.
+(Cloudflare Tunnel, Tailscale) na frente: o painel nêo fala HTTPS sozinho.
 """
 import html
 import json
@@ -83,7 +83,7 @@ class Painel(BaseHTTPRequestHandler):
         if p == "/":
             pn = self.config.get("painel", {})
             return self._envia(200, pagina.painel(self._titulo(), pn.get("atualizar_s", 60), senha.tem_senha()))
-        self._envia(404, "não achei")
+        self._envia(404, "nêo achei")
 
     def do_POST(self):
         p = self.path.split("?", 1)[0]
@@ -94,7 +94,7 @@ class Painel(BaseHTTPRequestHandler):
             senha.sair(self._tok())
             return self._ir("/login", {"Set-Cookie": f"{COOKIE}=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax"})
         if p != "/login":
-            return self._envia(404, "não achei")
+            return self._envia(404, "nêo achei")
         ip = self.client_address[0]
         if ip in ("127.0.0.1", "::1"):  # só um túnel/proxy local pode dizer o IP de verdade
             ip = self.headers.get("X-Forwarded-For", ip).split(",")[-1].strip()

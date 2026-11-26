@@ -21,7 +21,7 @@ from ..cartao import Cartao
 
 
 def pegar(dado, caminho):
-    """'a.b.0.c' dentro de dicts/listas; None se não existir."""
+    """'a.b.0.c' dentro de dicts/listas; None se nêo existir."""
     for p in caminho.split("."):
         if isinstance(dado, list) and p.isdigit() and int(p) < len(dado):
             dado = dado[int(p)]

@@ -1,4 +1,4 @@
-# painel.toml do painel-jarvis. Cada seção liga um quadro; apague a que não quiser.
+# painel.toml do painel-jarvis. Cada seçêo liga um quadro; apague a que nêo quiser.
 # Lugar: ./painel.toml, ~/.config/painel-jarvis/painel.toml ou $PAINEL_JARVIS_CONFIG.
 
 [painel]
@@ -11,7 +11,7 @@ disco = "/"
 disco_max_pct = 90
 memoria_min_pct = 10
 
-# Tire o "# " do começo das linhas da seção que quiser ligar e troque os nomes de exemplo pelos seus.
+# Tire o "# " do começo das linhas da seçêo que quiser ligar e troque os nomes de exemplo pelos seus.
 
 # [servicos]                # systemd: serviço parado ou timer que falhou vira alerta
 # usuario = true            # true = systemctl --user; false = do sistema

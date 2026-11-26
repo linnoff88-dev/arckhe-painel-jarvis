@@ -1,4 +1,4 @@
-"""Junta os quadros ligados no painel.toml. Cada coletor roda isolado: se um quebra, vira cartão "sem leitura"."""
+"""Junta os quadros ligados no painel.toml. Cada coletor roda isolado: se um quebra, vira cartêo "sem leitura"."""
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -6,7 +6,7 @@ from . import config as cfgmod
 from .cartao import PESO, falhou
 from .coletores import git, maquina, rotinas, servicos, sites, uso_json
 
-# (seção do painel.toml, título padrão, função)
+# (seçêo do painel.toml, título padrêo, funçêo)
 QUADROS = [
     ("maquina", "Máquina", maquina.coletar),
     ("servicos", "Serviços", servicos.coletar),
@@ -20,7 +20,7 @@ _cache = {"em": 0, "dados": None}
 def _roda(fn, id, titulo, sec):
     try:
         return fn(sec)
-    except Exception as e:  # um coletor quebrado não derruba o painel
+    except Exception as e:  # um coletor quebrado nêo derruba o painel
         return falhou(id, sec.get("titulo", titulo), e)
 
 

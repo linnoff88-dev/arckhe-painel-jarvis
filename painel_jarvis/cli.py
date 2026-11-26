@@ -1,8 +1,8 @@
 """painel-jarvis <comando>
 
   cartoes            mostra os quadros no terminal (um por linha)
-  falhas             só o que pede atenção
-  web [--porta N] [--bind IP]   painel no navegador / celular (padrão 127.0.0.1:8790)
+  falhas             só o que pede atençêo
+  web [--porta N] [--bind IP]   painel no navegador / celular (padrêo 127.0.0.1:8790)
   mcp                servidor MCP por stdio (para Claude Code, Codex, qualquer Jarvis)
   senha              define a senha do painel web (pede no terminal)
   exemplo            imprime um painel.toml de exemplo
@@ -45,7 +45,7 @@ def main(argv=None):
         from .web import senha
         s = getpass.getpass("nova senha do painel (12+ caracteres): ")
         if s != getpass.getpass("repita: "):
-            print("as duas não batem")
+            print("as duas nêo batem")
             return 1
         try:
             senha.definir(s)

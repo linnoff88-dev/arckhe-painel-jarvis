@@ -27,7 +27,7 @@ def coletar(cfg):
         repo = os.path.expanduser(p)
         nome = os.path.basename(repo.rstrip("/"))
         if not os.path.isdir(os.path.join(repo, ".git")):
-            c.linha(nome, "não é um repositório git", "aviso")
+            c.linha(nome, "nêo é um repositório git", "aviso")
             continue
         n1, n7, ult = resumo(repo)
         t1, t7 = t1 + n1, t7 + n7

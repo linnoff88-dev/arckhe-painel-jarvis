@@ -32,14 +32,14 @@ button{background:none;border:1px solid var(--line);color:var(--tx);border-radiu
 
 JS = r"""(function(){'use strict';
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-var NOME={ok:'ok',aviso:'atenção',erro:'falha',sem:'sem leitura'},abertos={};
+var NOME={ok:'ok',aviso:'atençêo',erro:'falha',sem:'sem leitura'},abertos={};
 function lin(l){return'<div class="l"><span>'+esc(l.rotulo)+'</span><span class="'+(l.estado?'s-'+esc(l.estado):'')+'">'+esc(l.valor)+'</span></div>'}
 function desenhar(d){document.title=d.titulo;document.getElementById('tit').innerHTML=esc(d.titulo).replace(/^(\S+)/,'<b>$1</b>');
   var f=document.getElementById('faixa');f.className='faixa'+(d.alertas.length?'':' ok');
-  f.textContent=d.alertas.length?d.alertas.length+' ponto(s) de atenção: '+d.alertas.slice(0,4).join(' · '):'Tudo em ordem.';
+  f.textContent=d.alertas.length?d.alertas.length+' ponto(s) de atençêo: '+d.alertas.slice(0,4).join(' · '):'Tudo em ordem.';
   document.getElementById('cards').innerHTML=d.cartoes.map(function(c){return'<section class="c '+esc(c.estado)+(abertos[c.id]?' aberto':'')+'" data-id="'+esc(c.id)+'"><h2>'+esc(c.titulo)+'<span class="selo s-'+esc(c.estado)+'">'+(NOME[c.estado]||c.estado)+'</span></h2><p class="frase">'+esc(c.frase)+'</p>'+c.linhas.map(lin).join('')+'<div class="det">'+c.detalhe.map(lin).join('')+'</div></section>'}).join('');
   document.getElementById('hora').textContent='lido às '+new Date(d.gerado_em*1000).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}
-function semRede(){var f=document.getElementById('faixa');f.className='faixa';f.textContent='Sem conexão com o painel: mostrando a última leitura.'}
+function semRede(){var f=document.getElementById('faixa');f.className='faixa';f.textContent='Sem conexêo com o painel: mostrando a última leitura.'}
 function ler(){fetch('/api/painel',{credentials:'same-origin',cache:'no-store'}).then(function(r){if(r.status===401){location.href='/login';throw 0}return r.json()}).then(desenhar).catch(function(e){if(e!==0)semRede()})}
 addEventListener('offline',semRede);addEventListener('online',ler);
 document.addEventListener('click',function(e){var c=e.target.closest('.c');if(!c)return;abertos[c.dataset.id]=!abertos[c.dataset.id];c.classList.toggle('aberto')});
@@ -72,9 +72,9 @@ def manifesto(titulo):
                       {"src": "/icone-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}]}
 
 
-SW = """// painel-jarvis: sem cache (dado ao vivo); sem rede, mostra "sem conexão" em vez do erro do navegador.
+SW = """// painel-jarvis: sem cache (dado ao vivo); sem rede, mostra "sem conexêo" em vez do erro do navegador.
 self.addEventListener('install',function(){self.skipWaiting()});
 self.addEventListener('activate',function(e){e.waitUntil(self.clients.claim())});
 self.addEventListener('fetch',function(e){if(e.request.mode!=='navigate')return;
-  e.respondWith(fetch(e.request).catch(function(){return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="background:#0c0c10;color:#e7e7ea;font:16px system-ui;display:grid;place-items:center;height:100vh;margin:0;text-align:center"><div><p style="color:#FACC15;font-weight:700;font-size:1.2rem">Sem conexão com o painel</p><button onclick="location.reload()" style="padding:.7rem 1.3rem;border:0;border-radius:.6rem;background:#FACC15;font-weight:700">Tentar de novo</button></div>',{headers:{'Content-Type':'text/html; charset=utf-8'}})}))});
+  e.respondWith(fetch(e.request).catch(function(){return new Response('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><body style="background:#0c0c10;color:#e7e7ea;font:16px system-ui;display:grid;place-items:center;height:100vh;margin:0;text-align:center"><div><p style="color:#FACC15;font-weight:700;font-size:1.2rem">Sem conexêo com o painel</p><button onclick="location.reload()" style="padding:.7rem 1.3rem;border:0;border-radius:.6rem;background:#FACC15;font-weight:700">Tentar de novo</button></div>',{headers:{'Content-Type':'text/html; charset=utf-8'}})}))});
 """

@@ -13,10 +13,10 @@ PROTOCOLOS = ("2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05")
 
 
 def responder(msg):
-    """Uma mensagem → resposta (dict) ou None (notificação)."""
+    """Uma mensagem → resposta (dict) ou None (notificaçêo)."""
     metodo, id_ = msg.get("method"), msg.get("id")
     if id_ is None:
-        return None  # notificações (ex.: notifications/initialized) não têm resposta
+        return None  # notificações (ex.: notifications/initialized) nêo têm resposta
     try:
         if metodo == "initialize":
             pedido = (msg.get("params") or {}).get("protocolVersion")
@@ -37,7 +37,7 @@ def responder(msg):
                 texto, erro = f"erro ao ler o painel: {e}", True
             r = {"content": [{"type": "text", "text": texto}], "isError": erro}
         else:
-            return {"jsonrpc": "2.0", "id": id_, "error": {"code": -32601, "message": f"método não suportado: {metodo}"}}
+            return {"jsonrpc": "2.0", "id": id_, "error": {"code": -32601, "message": f"método nêo suportado: {metodo}"}}
         return {"jsonrpc": "2.0", "id": id_, "result": r}
     except Exception as e:
         return {"jsonrpc": "2.0", "id": id_, "error": {"code": -32603, "message": str(e)}}

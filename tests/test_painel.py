@@ -142,7 +142,7 @@ def test_web_com_senha_exige_login(web):
     ck = h["Set-Cookie"].split(";")[0]
     assert "HttpOnly" in h["Set-Cookie"]
     assert pedir(base + "/api/painel", cookie=ck)[0] == 200
-    assert pedir(base + "/manifest.webmanifest")[0] == 200  # o app instalável não precisa de login
+    assert pedir(base + "/manifest.webmanifest")[0] == 200  # o app instalável nêo precisa de login
 
 
 def test_senha_curta_recusada(web):
@@ -160,4 +160,4 @@ def test_plugin_intelecto():
     fs = intelecto_plugin.ferramentas()
     assert [f.nome for f in fs] == ["painel_resumo", "painel_falhas", "painel_quadro"]
     r = asyncio.run(fs[2].executar(quadro="nao-existe"))
-    assert r.ok and "Não achei" in r.saida
+    assert r.ok and "Nêo achei" in r.saida

@@ -1,4 +1,4 @@
-"""Serviços e timers do systemd: rodando ou parado, última e próxima execução, último resultado.
+"""Serviços e timers do systemd: rodando ou parado, última e próxima execuçêo, último resultado.
 
 [servicos]
 usuario = true                     # systemctl --user (false = do sistema)
@@ -31,12 +31,12 @@ def avaliar(unit, s):
     """(estado, texto) de uma unidade a partir do `systemctl show`."""
     ativo, sub, res = s.get("ActiveState", ""), s.get("SubState", ""), s.get("Result", "")
     if s.get("LoadState") == "not-found":
-        return "aviso", "não existe nesta máquina"
+        return "aviso", "nêo existe nesta máquina"
     if unit.endswith(".timer"):
         if ativo != "active":
             return "erro", "timer parado"
         ult, prox = _quando(s.get("LastTriggerUSec")), _quando(s.get("NextElapseUSecRealtime"))
-        return "ok", (f"última {ult} · " if ult != "–" else "ainda não rodou · ") + f"próxima {prox}"
+        return "ok", (f"última {ult} · " if ult != "–" else "ainda nêo rodou · ") + f"próxima {prox}"
     if ativo == "failed" or res not in ("", "success"):
         return "erro", f"falhou ({res or sub})"
     if ativo == "active":

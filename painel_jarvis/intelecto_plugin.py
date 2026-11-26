@@ -2,7 +2,7 @@
 
 O intelecto acha este plugin pelo entry point `intelecto.plugins` (nome "painel") e só o carrega se o dono ligar:
   INTELECTO_PLUGINS=painel   (ou plugins = ["painel"] na config do intelecto)
-Todas são só leitura: não passam pela trava de comandos porque não executam nada que o agente escolha.
+Todas sêo só leitura: nêo passam pela trava de comandos porque nêo executam nada que o agente escolha.
 """
 import asyncio
 
